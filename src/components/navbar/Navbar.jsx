@@ -1,13 +1,8 @@
 import { useState } from "react";
 import "./navbar.scss";
-import AllPage from "../../pages/allProduct/AllPage";
-import ResidentialPage from "../../pages/allProduct/ResidentialPage";
-import IndustryPage from "../../pages/allProduct/IndustryPage";
-import FinancingPage from "../../pages/allProduct/FinancingPage";
-import FilePage from "../../pages/allProduct/FilePage";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  // State to manage active button
   const [activeButton, setActiveButton] = useState("Alle");
 
   // Function to handle button click and set active state
@@ -16,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar-container mx-[33px]">
+    <div className="navbar-container mx-[33px] z-50">
       {/* Alert Section */}
       <div className="bg-red-100 text-[rgb(239,89,89)] rounded-lg text-sm text-start font-semibold mt-[20px] h-[50px] flex items-center">
         <p className="pl-[30px]">
@@ -32,15 +27,17 @@ const Navbar = () => {
             Marktplatz
           </h1>
           <div className="mt-4 flex space-x-3 font-medium font-sans">
-            <button
+            <Link
+              to={"/"}
               className={`btn-category ${
                 activeButton === "Alle" ? "active border-[1px]" : "border-[1px]"
               }`}
               onClick={() => handleButtonClick("Alle")}
             >
               🏠 Alle
-            </button>
-            <button
+            </Link>
+            <Link
+              to={"/residential"}
               className={`btn-category ${
                 activeButton === "Wohnimmobilien"
                   ? "active border-[1px]"
@@ -49,8 +46,9 @@ const Navbar = () => {
               onClick={() => handleButtonClick("Wohnimmobilien")}
             >
               🏘 Wohnimmobilien
-            </button>
-            <button
+            </Link>
+            <Link
+              to={"/industry"}
               className={`btn-category ${
                 activeButton === "Gewerbe"
                   ? "active border-[1px]"
@@ -59,8 +57,9 @@ const Navbar = () => {
               onClick={() => handleButtonClick("Gewerbe")}
             >
               🏢 Gewerbe
-            </button>
-            <button
+            </Link>
+            <Link
+              to={"/finance"}
               className={`btn-category ${
                 activeButton === "Finanzierungsphase"
                   ? "active border-[1px]"
@@ -69,8 +68,9 @@ const Navbar = () => {
               onClick={() => handleButtonClick("Finanzierungsphase")}
             >
               ⌚ Finanzierungsphase
-            </button>
-            <button
+            </Link>
+            <Link
+              to={"/file"}
               className={`btn-category ${
                 activeButton === "Bestand"
                   ? "active border-[1px]"
@@ -79,7 +79,7 @@ const Navbar = () => {
               onClick={() => handleButtonClick("Bestand")}
             >
               ✔ Bestand
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -93,42 +93,42 @@ const Navbar = () => {
       </div>
 
       {/* Conditional Content Rendering based on Active Button */}
-      <div className="page-content mt-6">
+      {/* <div className="page-content mt-6">
         {activeButton === "Alle" && <AllePage />}
         {activeButton === "Wohnimmobilien" && <WohnimmobilienPage />}
         {activeButton === "Gewerbe" && <GewerbePage />}
         {activeButton === "Finanzierungsphase" && <FinanzierungsphasePage />}
         {activeButton === "Bestand" && <BestandPage />}
-      </div>
+      </div> */}
     </div>
   );
 };
 
 // Placeholder components for each category
-const AllePage = () => (
-  <div>
-    <AllPage />
-  </div>
-);
-const WohnimmobilienPage = () => (
-  <div>
-    <ResidentialPage />
-  </div>
-);
-const GewerbePage = () => (
-  <div>
-    <IndustryPage />
-  </div>
-);
-const FinanzierungsphasePage = () => (
-  <div>
-    <FinancingPage />
-  </div>
-);
-const BestandPage = () => (
-  <div>
-    <FilePage />
-  </div>
-);
+// const AllePage = () => (
+//   <div>
+//     <AllPage />
+//   </div>
+// );
+// const WohnimmobilienPage = () => (
+//   <div>
+//     <ResidentialPage />
+//   </div>
+// );
+// const GewerbePage = () => (
+//   <div>
+//     <IndustryPage />
+//   </div>
+// );
+// const FinanzierungsphasePage = () => (
+//   <div>
+//     <FinancingPage />
+//   </div>
+// );
+// const BestandPage = () => (
+//   <div>
+//     <FilePage />
+//   </div>
+// );
 
 export default Navbar;

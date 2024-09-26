@@ -8,6 +8,9 @@ const Home = () => {
   return (
     <div className="App">
       <div className="container  mx-auto px-4 ">
+        {/* <NewObject/>
+        thi sis home page */}
+        This is home page
       </div>
     </div>
   );
