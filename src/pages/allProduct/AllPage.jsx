@@ -6,10 +6,10 @@ import Footer from '../../components/footer/Footer'
 
 const AllPage = () => {
   return (
-    <div className="container  mx-auto px-4 ">
+    <div className="">
     <NewObject />
-    <OtherObjects/>
-    <Footer/>
+    {/* <OtherObjects/>
+    <Footer/> */}
   </div>
   )
 }

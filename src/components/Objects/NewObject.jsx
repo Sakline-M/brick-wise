@@ -4,11 +4,11 @@ import Card from "../card/Card";
 
 const NewObject = () => {
   return (
-    <div className="container border-double  bg-[rgb(249,250,251)] pb-[20px] px-[20px] rounded-2xl border-[1px]">
-      <div className="title text-[25px] font-bold mt-[10px]">
+    <div className="bg-[#F8FAFA] p-5 rounded-2xl flex flex-col">
+      <div className="text-[24px] font-semibold text-[#1F3448]">
         Neue Objekte
       </div>
-      <div className="card flex flex-row justify-between">
+      <div className="w-full grid grid-cols-3 gap-8">
         <Card />
         <Card />
         <Card />

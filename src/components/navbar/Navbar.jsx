@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar-container mx-[33px] z-50">
+    <div className="">
       {/* Alert Section */}
       <div className="bg-red-100 text-[rgb(239,89,89)] rounded-lg text-sm text-start font-semibold mt-[20px] h-[50px] flex items-center">
         <p className="pl-[30px]">

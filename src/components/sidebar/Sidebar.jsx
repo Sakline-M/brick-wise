@@ -4,7 +4,7 @@ import logoImg from "../../../public/logo.svg"
 
 const Sidebar = () => {
   return (
-    <div className="sidebar-container bg-[rgb(249,250,251)] mt-[20px] ml-5 w-[310px] rounded-lg  shadow-md ">
+    <div className="h-full w-[21.5%] rounded-xl bg-[#F8FAFA] p-2">
       {/* Logo */}
       <div className="text-center mt-[40px] mb-[60px]">
         <img src={logoImg} alt="" />
