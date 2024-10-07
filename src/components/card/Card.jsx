@@ -1,14 +1,17 @@
 import "./card.scss";
 import { AiOutlineHeart } from "react-icons/ai"; // Import heart icon from react-icons
 import cardimg from "../../../public/building.jpg";
-import CircularProgressWithLabel from "../CircularProgressWithLabel";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import ProgressBar from "../ProgressBar";
 
 const Card = () => {
   return (
-    <Link to={'/singlepage'} className="card bg-white shadow-lg w-full h-[455px] rounded-xl relative my-[20px]">
-      <figure className="relative">
+    <Link
+      to={"/singlepage"}
+      className=" bg-white shadow-lg w-full rounded-xl relative"
+    >
+      <div className="relative">
         {/* Card Image */}
         <img
           src={cardimg}
@@ -26,11 +29,11 @@ const Card = () => {
           19
           <AiOutlineHeart size={16} className="" />
         </button>
-      </figure>
+      </div>
 
-      <div className="w-full p-4">
+      <div className="w-full flex flex-col h-full p-4 gap-y-2">
         {/* Badges */}
-        <div className="flex gap-2 mb-2">
+        <div className="flex gap-2 pb-2">
           <div className="px-3 text-[#1F3448] font-semibold border border-slate-200 rounded-full py-1 text-xs flex items-center gap-x-1">
             KESt
             <IoInformationCircleOutline size={16} />
@@ -42,51 +45,47 @@ const Card = () => {
         </div>
 
         {/* Title and Location */}
-        <div className="flex items-center">
-          <div>
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-y-1">
             <h2 className="card-title text-[18px] font-medium text-[#1E3548]">
               Photovoltaik Anlage mit Schnellladestation im Parkhaus Quartier
               Mitte St. Pölten
             </h2>
-            <p className="text-[11px] font-semibold text-[#8F8898]">
+            <p className="text-xs font-medium text-zinc-500">
               Rennbahnstraße 1, 3100 St. Pölten, St. Pölten
             </p>
           </div>
-          <div>
-            <CircularProgressWithLabel />
-          </div>
+          <ProgressBar />
         </div>
 
         {/* Percentage and Label */}
-        <div className="mt-4 flex flex-col justify-center items-center bg-[#F0F4F6] py-[7px] rounded-md">
-          <p className="text-[16px] leading-[24px] font-semibold text-[#1F857E] flex items-center gap-x-1">
+        <div className="flex flex-col justify-center items-center bg-[#F0F4F6] py-[7px] rounded-md">
+          <p className="font-bold text-[#1f726d] flex items-center gap-x-1">
             6,12 % p.a.
             <IoInformationCircleOutline size={16} className="text-slate-400" />
           </p>
-          <p className="text-[12px] font-semibold text-gray-500">
+          <p className="text-xs font-medium text-zinc-500">
             Erw. laufende Ausschüttung
           </p>
         </div>
 
         {/* Details Section */}
-        <div className="mt-2 mb-[-2px] space-y-2 text-sm">
+        <div className="text-sm w-full flex flex-col gap-y-1">
           <div className="flex justify-between">
-            <p className="text-[#495D7D] text-[12px] font-semibold">
+            <p className="text-zinc-600 text-xs font-semibold">
               Preis pro Anteil:
             </p>
-            <p className="text-[#495D7D] text-[12px] font-semibold">€ 507,62</p>
+            <p className="text-zinc-600 text-xs font-semibold">€ 507,62</p>
           </div>
           <div className="flex justify-between">
-            <p className="text-[#495D7D] text-[12px] font-semibold">
-              Lafuzeit:
-            </p>
-            <p className="text-[#495D7D] text-[12px] font-semibold">€ 507,62</p>
+            <p className="text-zinc-600 text-xs font-semibold">Lafuzeit:</p>
+            <p className="text-zinc-600 text-xs font-semibold">31.10.2039</p>
           </div>
           <div className="flex justify-between">
-            <p className="text-[#495D7D] text-[12px] font-semibold">
+            <p className="text-zinc-600 text-xs font-semibold">
               Ausschuttungen er.ab:
             </p>
-            <p className="text-[#495D7D] text-[12px] font-semibold">€ 507,62</p>
+            <p className="text-zinc-600 text-xs font-semibold">15.11.2024</p>
           </div>
         </div>
       </div>

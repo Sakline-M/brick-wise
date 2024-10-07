@@ -4,11 +4,11 @@ import Card from "../card/Card";
 
 const NewObject = () => {
   return (
-    <div className="bg-[#F8FAFA] p-5 rounded-2xl flex flex-col">
+    <div className="bg-[#F8FAFA] p-5 rounded-2xl flex flex-col gap-y-5 h-full w-full">
       <div className="text-[24px] font-semibold text-[#1F3448]">
         Neue Objekte
       </div>
-      <div className="w-full grid grid-cols-3 gap-8">
+      <div className="w-full h-full grid gap-8 xl:grid-cols-3 md:grid-cols-2 grid-cols-1">
         <Card />
         <Card />
         <Card />
