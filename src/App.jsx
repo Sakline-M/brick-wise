@@ -4,6 +4,8 @@ import { Route, Routes } from "react-router-dom";
 import Sidebar from "./components/sidebar/Sidebar";
 import Home from "./pages/home/Home";
 import SinglePage from "./pages/SinglePage/SinglePage";
+import Support from "./pages/support/Support";
+import ContactUs from "./pages/contact-us/ContactUs";
 
 const App = () => {
   return (
@@ -13,6 +15,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/singlepage" element={<SinglePage />} />
+          <Route path="/support" element={<Support />} />
+          <Route path="/support/write-us" element={<ContactUs />} />
         </Routes>
       </div>
     </div>

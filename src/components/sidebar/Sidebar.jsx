@@ -1,14 +1,15 @@
 import "./sidebar.scss";
 import qrimage from "../../../public/qrimge.png";
 import logoImg from "../../../public/logo.svg"
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
     <div className="h-full w-[21.5%] rounded-xl bg-[#F8FAFA] p-2">
       {/* Logo */}
-      <div className="text-center mt-[40px] mb-[60px]">
+      <Link to={"/"} className="text-center mt-[40px] mb-[60px]">
         <img src={logoImg} alt="" />
-      </div>
+      </Link>
 
       {/* Menu Items */}
       <div className="space-y-4 pl-[20px] pb-4">
@@ -17,10 +18,10 @@ const Sidebar = () => {
           <p className="font-medium">Marktplatz</p>
         </div>
 
-        <div className="flex items-center space-x-2 text-gray-500">
+        <Link to={'/support'} className="flex items-center space-x-2 text-gray-500">
           <span>❓</span>
           <p className="font-medium">Support</p>
-        </div>
+        </Link>
       </div>
 
       {/* Login and Sign Up Buttons */}
