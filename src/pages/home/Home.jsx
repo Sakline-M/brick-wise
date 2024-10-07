@@ -1,15 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { RiHomeLine } from "react-icons/ri";
-import { RiHomeFill } from "react-icons/ri";
-import { PiArmchairFill } from "react-icons/pi";
 import { PiArmchairLight } from "react-icons/pi";
-import { RiBuilding2Fill } from "react-icons/ri";
 import { RiBuilding2Line } from "react-icons/ri";
 import { PiClockCountdown } from "react-icons/pi";
-import { PiClockCountdownFill } from "react-icons/pi";
 import { IoMdCheckboxOutline } from "react-icons/io";
-import { IoMdCheckbox } from "react-icons/io";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import AllPage from "../allProduct/AllPage";
 
