@@ -47,11 +47,11 @@ const Card = () => {
         {/* Title and Location */}
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-y-1">
-            <h2 className="card-title text-[18px] font-medium text-[#1E3548]">
+            <h2 className="card-title xl:text-base md:text-sm text-xs font-medium text-[#1E3548]">
               Photovoltaik Anlage mit Schnellladestation im Parkhaus Quartier
               Mitte St. Pölten
             </h2>
-            <p className="text-xs font-medium text-zinc-500">
+            <p className="md:text-xs text-[.6rem] font-medium text-zinc-500">
               Rennbahnstraße 1, 3100 St. Pölten, St. Pölten
             </p>
           </div>

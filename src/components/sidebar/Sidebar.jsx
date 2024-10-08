@@ -1,11 +1,12 @@
-import "./sidebar.scss";
-import qrimage from "../../../public/qrimge.png";
+import { useState } from "react";
 import logoImg from "../../../public/logo.svg";
 import { Link } from "react-router-dom";
+import Login from "../Login";
 
 const Sidebar = () => {
+  const [toggle, setToggle] = useState(false);
   return (
-    <div className="h-full w-[21.5%] rounded-xl bg-[#F8FAFA] p-2 hidden xl:block">
+    <div className="h-full w-[23rem] rounded-xl bg-[#F8FAFA] p-2 hidden xl:block overflow-auto">
       {/* Logo */}
       <Link to={"/"}>
         <div className="text-center mt-[40px] mb-[60px]">
@@ -15,7 +16,7 @@ const Sidebar = () => {
 
       {/* Menu Items */}
       <div className="space-y-4 pl-[20px] pb-4">
-        <Link to={'/'}>
+        <Link to={"/"}>
           <div className="flex items-center space-x-2 text-gray-700">
             <span className="text-red-500">🏠</span>
             <p className="font-medium">Marktplatz</p>
@@ -33,26 +34,18 @@ const Sidebar = () => {
 
       {/* Login and Sign Up Buttons */}
       <div className="mt-8 px-[12px]">
-        <button className="w-full text-[#1F857E] border-2 border-[#1F857E] py-3 rounded-lg mb-4 font-sans font-medium ">
+        <button
+          onClick={() => setToggle(true)}
+          className={`w-full text-[#1F857E] border-2 border-[#1F857E] py-3 rounded-lg mb-4 font-sans font-medium`}
+        >
           Einloggen
         </button>
+        {toggle && <Login setToggle={setToggle} />}
         <Link to={"/signup"}>
           <button className="w-full bg-[#1F857E] text-white py-3 rounded-lg font-sans font-medium">
             Account erstellen
           </button>
         </Link>
-      </div>
-
-      {/* QR Code Section */}
-      <div className="mt-8 text-center flex flex-col items-start">
-        <h3 className="font-semibold font-sans text-[20px] text-gray-700 mb-2 mt-3 ml-3">
-          Jetzt App downloaden!
-        </h3>
-        <p className="text-[14px] font-semibold font-serif text-gray-500 mb-4 flex items-start py-[8px] text-start ml-3">
-          Scanne den QR Code mit einem Handy um die Brickwise App
-          herunterzuladen.
-        </p>
-        <img src={qrimage} alt="QR Code" className="ml-3" />
       </div>
 
       {/* Footer */}

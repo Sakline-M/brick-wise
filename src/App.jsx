@@ -12,19 +12,19 @@ import { AiOutlineBars } from "react-icons/ai";
 import SideBarRes from "./components/sidebar/SideBarRes";
 
 const App = () => {
-  const [toggle, setToggle] = useState(false);
+  const [toggleR, setToggleR] = useState(false);
   return (
     <div className="flex w-full h-screen bg-white p-6 gap-x-8">
-      <div className="xl:hidden absolute top-5 left-5">
+      <div className="xl:hidden absolute top-5 left-5 z-20">
         <button
-          onClick={() => setToggle(true)}
+          onClick={() => setToggleR(true)}
           className=" flex items-start justify-center bg-slate-200 p-3 rounded-full"
         >
           <AiOutlineBars size={24} />
         </button>
       </div>
       <Sidebar />
-      <SideBarRes toggle={toggle} setToggle={setToggle}/>
+      <SideBarRes toggleR={toggleR} setToggleR={setToggleR} />
       <div className="flex flex-col w-full h-full">
         <Routes>
           <Route path="/" element={<Home />} />

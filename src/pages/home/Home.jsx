@@ -1,15 +1,22 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { RiHomeLine } from "react-icons/ri";
-import { PiArmchairLight } from "react-icons/pi";
+import { RiBuilding2Fill, RiHomeFill, RiHomeLine } from "react-icons/ri";
+import {
+  PiArmchairFill,
+  PiArmchairLight,
+  PiClockCountdownFill,
+} from "react-icons/pi";
 import { RiBuilding2Line } from "react-icons/ri";
 import { PiClockCountdown } from "react-icons/pi";
-import { IoMdCheckboxOutline } from "react-icons/io";
+import { IoMdCheckbox, IoMdCheckboxOutline } from "react-icons/io";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import AllPage from "../allProduct/AllPage";
+import { Link } from "react-router-dom";
+import Login from "../../components/Login";
 
 const Home = () => {
   const [open, setOpen] = useState(1);
+  const [toggle, setToggle] = useState(false);
   return (
     <div className="w-full h-full flex flex-col gap-y-3">
       <div className="w-full flex flex-col gap-y-3 xl:mt-0 mt-10">
@@ -19,12 +26,18 @@ const Home = () => {
             Marktplatz
           </span>
           <div className="md:w-auto w-full flex items-center md:justify-normal justify-end gap-x-3">
-            <button className="text-[#1F847F] md:text-[16px] text-sm font-semibold hover:bg-slate-100 px-8 py-3 rounded transition-all duration-300">
+            <button
+              onClick={() => setToggle(true)}
+              className="text-[#1F847F] md:text-[16px] text-sm font-semibold hover:bg-slate-100 px-8 py-3 rounded transition-all duration-300"
+            >
               Einloggen
             </button>
-            <button className="text-white bg-[#1F847F] hover:bg-[#186965] md:text-[16px] text-sm font-semibold px-8 py-3 rounded transition-all duration-300 text-nowrap">
-              Account erstellen
-            </button>
+            {toggle ? <Login setToggle={setToggle}/> : ""}
+            <Link to={"/signup"}>
+              <button className="text-white bg-[#1F847F] hover:bg-[#186965] md:text-[16px] text-sm font-semibold px-8 py-3 rounded transition-all duration-300 text-nowrap">
+                Account erstellen
+              </button>
+            </Link>
           </div>
         </div>
         {/* logo and login */}

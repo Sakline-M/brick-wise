@@ -11,6 +11,7 @@ import PowerPlantInfo from "./PowerPlantInfo";
 import LocationDetails from "./LocationDetails";
 import InvestmentInfos from "./InvestmentInfos";
 import CurrentIncome from "./CurrentIncome";
+import { Link } from "react-router-dom";
 
 const SinglePage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -19,7 +20,7 @@ const SinglePage = () => {
     <div className="w-full h-full flex flex-col gap-y-5">
       <div className="w-full flex md:flex-row flex-col md:items-center md:justify-between gap-5 md:px-0 px-5 md:mt-0 mt-10">
         <div className="md:w-[70%] flex gap-x-5 items-start">
-          <FaArrowLeft size={25} className="mt-4 text-[#1F3448]" />
+          <Link to={'/'}><FaArrowLeft size={25} className="mt-4 text-[#1F3448]" /></Link>
           <div className="w-full flex flex-col">
             <h1 className="xl:text-5xl md:text-2xl text-xl font-semibold text-[#1F3448] md:leading-[1.4]">
               Photovoltaik Anlage mit Schnellladestation im Parkhaus Quartier

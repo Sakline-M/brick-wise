@@ -6,7 +6,7 @@ import Footer from '../../components/footer/Footer'
 
 const AllPage = () => {
   return (
-    <div className="w-full h-auto flex flex-col gap-y-12">
+    <div className="w-full h-full flex flex-col gap-y-12">
     <NewObject />
     <OtherObjects/>
     {/* <Footer/> */}
