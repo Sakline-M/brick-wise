@@ -20,6 +20,7 @@ const countries = [
   { value: "finnland", label: "Finnland" },
 ];
 
+// array for your nationalities
 const nationalities = [
   "Afghan",
   "Albanian",
@@ -211,8 +212,11 @@ const nationalities = [
   "Zambian",
   "Zimbabwean",
 ];
+
+// array for date
 const numbers = Array.from({ length: 31 }, (_, i) => i + 1);
 
+// array for months
 const months = [
   "January",
   "February",
@@ -228,17 +232,17 @@ const months = [
   "December",
 ];
 
+// array for years
 const years = Array.from(
   { length: 2006 - 1900 + 1 },
   (_, i) => i + 1900
 ).reverse();
 
 const Signup = () => {
+  // all state
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState(null);
-  const navigate = useNavigate();
   const [error, setError] = useState("");
-
   const [user, setUser] = useState({
     firstName: "biplob",
     lastName: "hossain",
@@ -264,11 +268,16 @@ const Signup = () => {
     investment: "yes",
   });
 
+  // navigate
+  const navigate = useNavigate();
+
+  // ALL FUNCTIONS
   const handleChange = (event) => {
     setSelected(event.target.value);
   };
   const handleNext = () => setStep(step + 1);
 
+  // handle sign up submit
   const handleSubmit = (event) => {
     event.preventDefault();
     setError("");
@@ -284,7 +293,7 @@ const Signup = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         if (data.status === "success") {
           handleNext();
         } else {
@@ -293,6 +302,7 @@ const Signup = () => {
       });
   };
 
+  // handle resend email
   const resendConfirmEmail = (email) => {
     fetch(`http://localhost:5000/api/v1/user/email`, {
       method: "POST",
@@ -316,12 +326,14 @@ const Signup = () => {
   };
 
   return (
+    // Main div
     <div className="w-full h-full">
       <div className="md:w-[40rem] xl:mx-0 mx-auto w-full h-full flex flex-col gap-y-5 overflow-auto no-scrollbar p-5">
         <h1 className="xl:text-5xl md:text-3xl text-xl text-center text-pretty uppercase text-black">
           In wenigen Schritten zu Ihrem Zins
         </h1>
         <div className="w-full flex flex-col py-10 gap-y-2">
+          {/* color line div */}
           <div className="w-full flex items-center justify-between px-10">
             <div className="w-full flex items-center">
               <div className="p-[10px] rounded-full bg-[#FF0000] border-2 border-[#EAEEF2]"></div>
@@ -355,7 +367,7 @@ const Signup = () => {
             <span className=" md:text-base text-xs">Aktivierung</span>
           </div>
         </div>
-
+        {/* function for show step */}
         {step === 1 && (
           <Step1
             handleNext={handleNext}
@@ -386,7 +398,9 @@ const Signup = () => {
   );
 };
 
+// step 1
 const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
+  // sign up from
   <form onSubmit={handleSubmit} className="w-full flex flex-col gap-y-5">
     <span className="md:pb-8 pb-3 border-b md:text-2xl text-lg text-black">
       Bitte vervollständigen Sie Ihr Profil
@@ -394,6 +408,7 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
     <span className="text-end sm:text-sm text-xs font-medium">
       * sind Pflichtangaben
     </span>
+    {/* gender and title */}
     <div className="w-full flex items-center justify-between gap-x-5">
       <div className="w-full flex flex-col gap-y-1">
         <label htmlFor="" className="text-black md:text-base text-xs">
@@ -432,6 +447,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
         </select>
       </div>
     </div>
+
+    {/* first name */}
     <div className="w-full flex items-center justify-between gap-x-5">
       <div className="w-full flex flex-col gap-y-1">
         <label htmlFor="" className="text-black md:text-base text-xs">
@@ -448,6 +465,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
           }}
         />
       </div>
+
+      {/* last name */}
       <div className="w-full flex flex-col gap-y-1">
         <label htmlFor="" className="text-black md:text-base text-xs">
           Nachname*
@@ -464,6 +483,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
         />
       </div>
     </div>
+
+    {/* street */}
     <div className="w-full flex items-center gap-x-5">
       <div className="w-[70%] flex flex-col gap-y-1">
         <label htmlFor="" className="text-black md:text-base text-xs">
@@ -480,6 +501,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
           }}
         />
       </div>
+
+      {/* street no. */}
       <div className="w-[30%] flex flex-col gap-y-1">
         <label htmlFor="" className="text-black md:text-base text-xs">
           Nr.*
@@ -496,6 +519,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
         />
       </div>
     </div>
+
+    {/* Zip Code */}
     <div className="w-full flex items-center gap-x-5">
       <div className="w-[30%] flex flex-col gap-y-1">
         <label htmlFor="" className="text-black md:text-base text-xs">
@@ -511,6 +536,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
           }}
         />
       </div>
+
+      {/* City */}
       <div className="w-[70%] flex flex-col gap-y-1">
         <label htmlFor="" className="text-black md:text-base text-xs">
           Stadt*
@@ -527,6 +554,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
         />
       </div>
     </div>
+
+    {/* Country */}
     <div className="w-full flex flex-col gap-y-1">
       <label htmlFor="" className="text-black md:text-base text-xs">
         Land*
@@ -548,6 +577,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
         ))}
       </select>
     </div>
+
+    {/* political checkbox */}
     <div className="w-full flex items-center justify-between gap-x-5">
       <div className="w-full flex flex-col gap-y-1">
         <label htmlFor="" className="text-black md:text-base text-xs">
@@ -566,6 +597,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
           <option value="no">Nein</option>
         </select>
       </div>
+
+      {/* Tax */}
       <div className="w-full flex flex-col gap-y-1">
         <label htmlFor="" className="text-black md:text-base text-xs">
           Liegt eine US-Steuerpflicht vor*
@@ -584,6 +617,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
         </select>
       </div>
     </div>
+
+    {/* Birth Place */}
     <div className="w-full flex items-center justify-between gap-x-5">
       <div className="w-full flex flex-col gap-y-1">
         <label htmlFor="" className="text-black md:text-base text-xs">
@@ -600,6 +635,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
           }}
         />
       </div>
+
+      {/* Nationality */}
       <div className="w-full flex flex-col gap-y-1">
         <label htmlFor="" className="text-black md:text-base text-xs">
           Staatsangehörigkeit*
@@ -621,6 +658,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
         </select>
       </div>
     </div>
+
+    {/* Date Of Barth */}
     <div className="w-full flex flex-col gap-y-1">
       <span className="text-black md:text-base text-sm">Geburtsdatum*</span>
       <div className="w-full flex items-center justify-between gap-x-5">
@@ -678,6 +717,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
         </div>
       </div>
     </div>
+
+    {/* Phone */}
     <div className="w-full flex flex-col gap-y-1">
       <label htmlFor="" className=" md:text-base text-xs">
         Telefonnummer*
@@ -693,6 +734,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
         }}
       />
     </div>
+
+    {/* Email */}
     <div className="w-full flex flex-col gap-y-1">
       <label htmlFor="" className=" md:text-base text-xs">
         E-Mail-Adresse*
@@ -708,6 +751,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
         }}
       />
     </div>
+
+    {/* Password */}
     <div className="w-full flex items-center justify-between gap-x-5">
       <div className="w-full flex flex-col gap-y-1">
         <label htmlFor="" className="text-black md:text-base text-xs">
@@ -724,6 +769,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
           }}
         />
       </div>
+
+      {/* Confirm Password */}
       <div className="w-full flex flex-col gap-y-1">
         <label htmlFor="" className="text-black md:text-base text-xs">
           Passwort bestätigen*
@@ -740,6 +787,8 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
         />
       </div>
     </div>
+
+    {/* All Check box */}
     <div className="w-full flex items-baseline gap-x-1">
       <input type="checkbox" name="" id="" />
       <span className="sm:text-base text-sm">
@@ -770,6 +819,7 @@ const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
   </form>
 );
 
+// step 2
 const Step2 = ({ handleChange, selected, handleNext }) => (
   <div className="w-full h-full flex flex-col gap-y-5">
     <span className="sm:text-2xl text-lg">Erfahrungen und Kenntnisse</span>
@@ -870,6 +920,7 @@ const Step2 = ({ handleChange, selected, handleNext }) => (
   </div>
 );
 
+// step 3
 const Step3 = (user, resendConfirmEmail) => (
   <div className="w-full h-full flex flex-col items-center gap-y-5">
     <span className="sm:text-2xl text-lg font-medium text-center">
