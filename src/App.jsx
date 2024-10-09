@@ -10,11 +10,13 @@ import Signup from "./pages/Signup/Signup";
 import { useState } from "react";
 import { AiOutlineBars } from "react-icons/ai";
 import SideBarRes from "./components/sidebar/SideBarRes";
+import Toaster from "react-hot-toast";
 
 const App = () => {
   const [toggleR, setToggleR] = useState(false);
   return (
     <div className="flex w-full h-screen bg-white p-6 gap-x-8">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="xl:hidden absolute top-5 left-5 z-20">
         <button
           onClick={() => setToggleR(true)}

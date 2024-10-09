@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 
 const countries = [
   { value: "deutschland", label: "Deutschland" },
@@ -233,12 +235,86 @@ const years = Array.from(
 
 const Signup = () => {
   const [step, setStep] = useState(1);
-  const handleNext = () => setStep(step + 1);
   const [selected, setSelected] = useState(null);
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+
+  const [user, setUser] = useState({
+    firstName: "biplob",
+    lastName: "hossain",
+    email: "mdbiplub13@gmail.com",
+    password: "123456",
+    confirmPassword: "123456",
+    gender: "male",
+    title: "",
+    street: "33",
+    no: "33",
+    zipCode: "333",
+    city: "dhaka",
+    country: "Germany",
+    political: "yes",
+    usTax: "yes",
+    placeOfBirth: "natore",
+    nationality: "xccv",
+    day: "1",
+    month: "January",
+    year: "2006",
+    phone: "0923872332",
+    experience: "skip",
+    investment: "yes",
+  });
 
   const handleChange = (event) => {
     setSelected(event.target.value);
   };
+  const handleNext = () => setStep(step + 1);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setError("");
+    const { day, month, year } = user;
+    const dateOfBirth = day + "-" + month + "-" + year;
+    const newUser = { ...user, dateOfBirth };
+    fetch(`http://localhost:5000/api/v1/user/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        if (data.status === "success") {
+          handleNext();
+        } else {
+          setError(data.message);
+        }
+      });
+  };
+
+  const resendConfirmEmail = (email) => {
+    fetch(`http://localhost:5000/api/v1/user/email`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "success") {
+          alert("Confirmation email sent successfully!");
+        } else {
+          alert(data.message);
+          console.log(data);
+        }
+      })
+      .catch((error) => {
+        console.error("Error sending confirmation email:", error);
+      });
+  };
+
   return (
     <div className="w-full h-full">
       <div className="md:w-[40rem] xl:mx-0 mx-auto w-full h-full flex flex-col gap-y-5 overflow-auto no-scrollbar p-5">
@@ -280,22 +356,38 @@ const Signup = () => {
           </div>
         </div>
 
-        {step === 1 && <Step1 handleNext={handleNext} />}
+        {step === 1 && (
+          <Step1
+            handleNext={handleNext}
+            user={user}
+            setUser={setUser}
+            handleSubmit={handleSubmit}
+            error={error}
+          />
+        )}
         {step === 2 && (
           <Step2
             handleChange={handleChange}
             selected={selected}
             handleNext={handleNext}
+            user={user}
+            setUser={setUser}
           />
         )}
-        {step === 3 && <Step3 handleNext={handleNext} />}
+        {step === 3 && (
+          <Step3
+            handleNext={handleNext}
+            user={user}
+            resendConfirmEmail={resendConfirmEmail}
+          />
+        )}
       </div>
     </div>
   );
 };
 
-const Step1 = ({ handleNext }) => (
-  <div className="w-full flex flex-col gap-y-5">
+const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
+  <form onSubmit={handleSubmit} className="w-full flex flex-col gap-y-5">
     <span className="md:pb-8 pb-3 border-b md:text-2xl text-lg text-black">
       Bitte vervollständigen Sie Ihr Profil
     </span>
@@ -308,13 +400,17 @@ const Step1 = ({ handleNext }) => (
           Anrede*
         </label>
         <select
-          name=""
+          name="gender"
           id=""
+          required
           className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
+          onChange={(e) => {
+            setUser({ ...user, gender: e.target.value });
+          }}
         >
-          <option value="">Bitte wählen</option>
-          <option value="">Herr</option>
-          <option value="">Frau</option>
+          <option disabled>Bitte wählen</option>
+          <option value="male">Herr</option>
+          <option value="female">Frau</option>
         </select>
       </div>
       <div className="w-full flex flex-col gap-y-1">
@@ -325,10 +421,14 @@ const Step1 = ({ handleNext }) => (
           name=""
           id=""
           className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
+          onChange={(e) => {
+            setUser({ ...user, title: e.target.value });
+          }}
         >
-          <option value="">Dr.</option>
-          <option value="">Prof.</option>
-          <option value="">Prof. Dr.</option>
+          <option value={""}>keiner</option>
+          <option value="Dr.">Dr.</option>
+          <option value="Prof.">Prof.</option>
+          <option value="Prof. Dr.">Prof. Dr.</option>
         </select>
       </div>
     </div>
@@ -341,7 +441,11 @@ const Step1 = ({ handleNext }) => (
           type="text"
           name=""
           id=""
+          required
           className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
+          onChange={(e) => {
+            setUser({ ...user, firstName: e.target.value });
+          }}
         />
       </div>
       <div className="w-full flex flex-col gap-y-1">
@@ -352,7 +456,11 @@ const Step1 = ({ handleNext }) => (
           type="text"
           name=""
           id=""
+          required
           className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
+          onChange={(e) => {
+            setUser({ ...user, lastName: e.target.value });
+          }}
         />
       </div>
     </div>
@@ -365,7 +473,11 @@ const Step1 = ({ handleNext }) => (
           type="text"
           name=""
           id=""
+          required
           className="w-full bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto"
+          onChange={(e) => {
+            setUser({ ...user, street: e.target.value });
+          }}
         />
       </div>
       <div className="w-[30%] flex flex-col gap-y-1">
@@ -376,7 +488,11 @@ const Step1 = ({ handleNext }) => (
           type="text"
           name=""
           id=""
+          required
           className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
+          onChange={(e) => {
+            setUser({ ...user, no: e.target.value });
+          }}
         />
       </div>
     </div>
@@ -390,6 +506,9 @@ const Step1 = ({ handleNext }) => (
           name=""
           id=""
           className="w-full bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto"
+          onChange={(e) => {
+            setUser({ ...user, zipCode: e.target.value });
+          }}
         />
       </div>
       <div className="w-[70%] flex flex-col gap-y-1">
@@ -400,7 +519,11 @@ const Step1 = ({ handleNext }) => (
           type="text"
           name=""
           id=""
+          required
           className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
+          onChange={(e) => {
+            setUser({ ...user, city: e.target.value });
+          }}
         />
       </div>
     </div>
@@ -411,11 +534,17 @@ const Step1 = ({ handleNext }) => (
       <select
         name=""
         id=""
+        required
         className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
+        onChange={(e) => {
+          setUser({ ...user, country: e.target.value });
+        }}
       >
-        <option value="">Bitte wählen</option>
+        <option disabled>Bitte wählen</option>
         {countries.map((country, i) => (
-          <option key={i}>{country.label}</option>
+          <option key={i} value={country.label}>
+            {country.label}
+          </option>
         ))}
       </select>
     </div>
@@ -428,10 +557,13 @@ const Step1 = ({ handleNext }) => (
           name=""
           id=""
           className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
+          onChange={(e) => {
+            setUser({ ...user, political: e.target.value });
+          }}
         >
-          <option value="">Bitte wählen</option>
-          <option value="">Ja</option>
-          <option value="">Nein</option>
+          <option disabled>Bitte wählen</option>
+          <option value="yes">Ja</option>
+          <option value="no">Nein</option>
         </select>
       </div>
       <div className="w-full flex flex-col gap-y-1">
@@ -442,10 +574,13 @@ const Step1 = ({ handleNext }) => (
           name=""
           id=""
           className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
+          onChange={(e) => {
+            setUser({ ...user, usTax: e.target.value });
+          }}
         >
-          <option value="">Bitte wählen</option>
-          <option value="">Ja</option>
-          <option value="">Nein</option>
+          <option disabled>Bitte wählen</option>
+          <option value="yes">Ja</option>
+          <option value="no">Nein</option>
         </select>
       </div>
     </div>
@@ -458,7 +593,11 @@ const Step1 = ({ handleNext }) => (
           type="text"
           name=""
           id=""
+          required
           className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
+          onChange={(e) => {
+            setUser({ ...user, placeOfBirth: e.target.value });
+          }}
         />
       </div>
       <div className="w-full flex flex-col gap-y-1">
@@ -468,10 +607,16 @@ const Step1 = ({ handleNext }) => (
         <select
           name=""
           id=""
+          required
           className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
+          onChange={(e) => {
+            setUser({ ...user, nationality: e.target.value });
+          }}
         >
           {nationalities.map((nation, i) => (
-            <option key={i}>{nation}</option>
+            <option key={i} value={nation}>
+              {nation}
+            </option>
           ))}
         </select>
       </div>
@@ -487,6 +632,9 @@ const Step1 = ({ handleNext }) => (
             name=""
             id=""
             className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
+            onChange={(e) => {
+              setUser({ ...user, day: e.target.value });
+            }}
           >
             {numbers.map((num, i) => (
               <option key={i}>{num}</option>
@@ -501,9 +649,14 @@ const Step1 = ({ handleNext }) => (
             name=""
             id=""
             className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
+            onChange={(e) => {
+              setUser({ ...user, month: e.target.value });
+            }}
           >
             {months.map((month, i) => (
-              <option key={i}>{month}</option>
+              <option key={i} value={month}>
+                {month}
+              </option>
             ))}
           </select>
         </div>
@@ -517,7 +670,9 @@ const Step1 = ({ handleNext }) => (
             className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
           >
             {years.map((year, i) => (
-              <option key={i}>{year}</option>
+              <option key={i} value={year}>
+                {year}
+              </option>
             ))}
           </select>
         </div>
@@ -531,7 +686,11 @@ const Step1 = ({ handleNext }) => (
         type="text"
         name=""
         id=""
+        required
         className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
+        onChange={(e) => {
+          setUser({ ...user, phone: e.target.value });
+        }}
       />
     </div>
     <div className="w-full flex flex-col gap-y-1">
@@ -542,7 +701,11 @@ const Step1 = ({ handleNext }) => (
         type="email"
         name=""
         id=""
+        required
         className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
+        onChange={(e) => {
+          setUser({ ...user, email: e.target.value });
+        }}
       />
     </div>
     <div className="w-full flex items-center justify-between gap-x-5">
@@ -551,10 +714,14 @@ const Step1 = ({ handleNext }) => (
           Passwort*
         </label>
         <input
-          type="text"
+          type="password"
           name=""
           id=""
+          required
           className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
+          onChange={(e) => {
+            setUser({ ...user, password: e.target.value });
+          }}
         />
       </div>
       <div className="w-full flex flex-col gap-y-1">
@@ -562,10 +729,14 @@ const Step1 = ({ handleNext }) => (
           Passwort bestätigen*
         </label>
         <input
-          type="text"
+          type="password"
           name=""
           id=""
+          required
           className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
+          onChange={(e) => {
+            setUser({ ...user, confirmPassword: e.target.value });
+          }}
         />
       </div>
     </div>
@@ -589,13 +760,14 @@ const Step1 = ({ handleNext }) => (
         werden. Es erfolgt keine Weitergabe an Dritte.
       </span>
     </div>
+    <p className="text-red-600 text-center">{error}</p>
     <button
-      onClick={handleNext}
+      type="submit"
       className="w-full py-2 sm:text-base text-sm rounded bg-[#FF0000] transition-colors duration-300 hover:bg-[#CC0000] text-white font-medium"
     >
       Speichern & Weiter
     </button>
-  </div>
+  </form>
 );
 
 const Step2 = ({ handleChange, selected, handleNext }) => (
@@ -698,7 +870,7 @@ const Step2 = ({ handleChange, selected, handleNext }) => (
   </div>
 );
 
-const Step3 = () => (
+const Step3 = (user, resendConfirmEmail) => (
   <div className="w-full h-full flex flex-col items-center gap-y-5">
     <span className="sm:text-2xl text-lg font-medium text-center">
       Bitte aktivieren Sie jetzt Ihre E-Mail-Adresse!
@@ -713,9 +885,14 @@ const Step3 = () => (
       Ihr Aktivierungslink wurde an die folgende E-Mail-Adresse geschickt
     </span>
     <span className="sm:text-base text-sm font-semibold">
-      leonali274784@gmail.com
+      {user?.user?.email}
     </span>
-    <button className="text-red-500 hover:underline sm:text-base text-sm">
+    <button
+      onClick={() => {
+        resendConfirmEmail(user?.user?.email);
+      }}
+      className="text-red-500 hover:underline sm:text-base text-sm"
+    >
       Aktivierungslink erneut zuschicken
     </button>
     <Link to={"/"} className="w-full px-16">

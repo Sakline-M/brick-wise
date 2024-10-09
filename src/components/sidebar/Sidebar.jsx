@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import logoImg from "../../../public/logo.svg";
 import { Link } from "react-router-dom";
 import Login from "../Login";
+import { AuthContext } from "../../contextApi/UserContext";
 
 const Sidebar = () => {
   const [toggle, setToggle] = useState(false);
+  const {user} = useContext(AuthContext)
+  console.log(user)
   return (
     <div className="h-full w-[23rem] rounded-xl bg-[#F8FAFA] p-2 hidden xl:block overflow-auto">
       {/* Logo */}
