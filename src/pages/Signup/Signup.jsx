@@ -284,7 +284,7 @@ const Signup = () => {
     const { day, month, year } = user;
     const dateOfBirth = day + "-" + month + "-" + year;
     const newUser = { ...user, dateOfBirth };
-    fetch(`http://localhost:5000/api/v1/user/signup`, {
+    fetch(`https://brick-wise-server.onrender.com/api/v1/user/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -304,7 +304,7 @@ const Signup = () => {
 
   // handle resend email
   const resendConfirmEmail = (email) => {
-    fetch(`http://localhost:5000/api/v1/user/email`, {
+    fetch(`https://brick-wise-server.onrender.com/api/v1/user/email`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
