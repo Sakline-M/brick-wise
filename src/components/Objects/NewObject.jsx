@@ -4,7 +4,7 @@ import Card from "../card/Card";
 
 const NewObject = () => {
   return (
-    <div className="bg-[#F8FAFA] p-5 rounded-2xl flex flex-col gap-y-5 h-full w-full">
+    <div className="bg-[#F8FAFA] p-5 rounded-2xl flex flex-col gap-y-5 h-auto w-full">
       <div className="text-[24px] font-semibold text-[#1F3448]">
         Neue Objekte
       </div>

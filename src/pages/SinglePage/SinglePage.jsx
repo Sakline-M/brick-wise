@@ -17,12 +17,12 @@ const SinglePage = () => {
   const [showModal, setShowModal] = useState(false);
   const [section, setSection] = useState("overview");
   return (
-    <div className="w-full h-full flex flex-col gap-y-5">
-      <div className="w-full flex md:flex-row flex-col md:items-center md:justify-between gap-5 md:px-0 px-5 md:mt-0 mt-10">
-        <div className="md:w-[70%] flex gap-x-5 items-start">
-          <Link to={'/'}><FaArrowLeft size={25} className="mt-4 text-[#1F3448]" /></Link>
+    <div className="w-full h-full flex flex-col sm:gap-y-5 gap-y-3 sm:px-10 sm:pt-20 pt-14">
+      <div className="w-full flex md:flex-row flex-col md:items-center md:justify-between sm:gap-5 gap-y-3 px-3 sm:px-0 md:mt-0 mt-10">
+        <div className="md:w-[70%] flex sm:gap-x-5 items-start">
+          <Link to={'/'}><FaArrowLeft className="mt-4 text-[#1F3448] sm:block hidden" /></Link>
           <div className="w-full flex flex-col">
-            <h1 className="xl:text-5xl md:text-2xl text-xl font-semibold text-[#1F3448] md:leading-[1.4]">
+            <h1 className="xl:text-4xl md:text-2xl text-base font-semibold text-[#1F3448] md:leading-[1.4]">
               Photovoltaik Anlage mit Schnellladestation im Parkhaus Quartier
               Mitte St. Pölten
             </h1>
@@ -31,7 +31,7 @@ const SinglePage = () => {
             </span>
           </div>
         </div>
-        <button className="md:px-7 py-3 text-nowrap bg-[#1F847F] rounded-md text-white font-semibold">
+        <button className="sm:px-7 py-2 sm:py-3 sm:text-base text-sm text-nowrap bg-[#1F847F] rounded-md text-white font-semibold">
           + Weitere Anteile Kaufen
         </button>
       </div>
@@ -41,9 +41,9 @@ const SinglePage = () => {
             onClick={() => setSection("overview")}
             className={`border-b-2 ${
               section === "overview" ? "border-[#1F847F]" : "border-slate-200"
-            }  text-nowrap p-3 text-start flex items-center gap-x-3 w-full md:text-base text-sm`}
+            }  text-nowrap p-3 text-start flex items-center sm:gap-x-3 gap-x-1 w-full md:text-base text-sm`}
           >
-            <RxDashboard size={25} />
+            <RxDashboard className="sm:text-[25px] text-[16px]" />
             Übersicht
           </button>
           <button
@@ -52,9 +52,9 @@ const SinglePage = () => {
               section === "powerplantinfo"
                 ? "border-[#1F847F]"
                 : "border-slate-200"
-            }  text-nowrap p-3 text-start flex items-center gap-x-3 w-full md:text-base text-sm`}
+            }  text-nowrap p-3 text-start flex items-center sm:gap-x-3 gap-x-1 w-full md:text-base text-sm`}
           >
-            <HiMiniSignal size={25} />
+            <HiMiniSignal className="sm:text-[25px] text-[16px]" />
             Kraftwerk Infos
           </button>
           <button
@@ -63,9 +63,9 @@ const SinglePage = () => {
               section === "locationdetails"
                 ? "border-[#1F847F]"
                 : "border-slate-200"
-            }  text-nowrap p-3 text-start flex items-center gap-x-3 w-full md:text-base text-sm`}
+            }  text-nowrap p-3 text-start flex items-center sm:gap-x-3 gap-x-1 w-full md:text-base text-sm`}
           >
-            <GrLocation size={25} />
+            <GrLocation className="sm:text-[25px] text-[16px]" />
             Details zur Lage
           </button>
           <button
@@ -74,9 +74,9 @@ const SinglePage = () => {
               section === "investmentinfos"
                 ? "border-[#1F847F]"
                 : "border-slate-200"
-            }  text-nowrap p-3 text-start flex items-center gap-x-3 w-full md:text-base text-sm`}
+            }  text-nowrap p-3 text-start flex items-center sm:gap-x-3 gap-x-1 w-full md:text-base text-sm`}
           >
-            <AiOutlineAreaChart size={25} />
+            <AiOutlineAreaChart className="sm:text-[25px] text-[16px]" />
             Investment Infos
           </button>
           <button
@@ -85,13 +85,13 @@ const SinglePage = () => {
               section === "currentincome"
                 ? "border-[#1F847F]"
                 : "border-slate-200"
-            }  text-nowrap p-3 text-start flex items-center gap-x-3 w-full md:text-base text-sm`}
+            }  text-nowrap p-3 text-start flex items-center sm:gap-x-3 gap-x-1 w-full md:text-base text-sm`}
           >
-            <IoWalletOutline size={25} />
+            <IoWalletOutline className="sm:text-[25px] text-[16px]" />
             Laufende Einnahmen
           </button>
         </div>
-        <div className="w-full h-full pt-8 flex justify-between gap-x-8 overflow-auto">
+        <div className="w-full h-full pt-8 flex justify-between gap-x-8 sm:px-0 px-3 overflow-auto">
           <div className="lg:w-[70%] w-full h-full flex flex-col gap-y-5 overflow-auto no-scrollbar">
             <img
               src="https://cdn.brickwise.at/f20a8a78-7774-4b21-8ac8-95250696e059.jpg"

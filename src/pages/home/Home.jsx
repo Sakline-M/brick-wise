@@ -13,33 +13,18 @@ import { FaMapMarkedAlt } from "react-icons/fa";
 import AllPage from "../allProduct/AllPage";
 import { Link } from "react-router-dom";
 import Login from "../../components/Login";
+import NewObject from "../../components/Objects/NewObject";
+import OtherObjects from "../../components/Objects/OtherObjects";
 
 const Home = () => {
   const [open, setOpen] = useState(1);
-  const [toggle, setToggle] = useState(false);
   return (
-    <div className="w-full h-full flex flex-col gap-y-3">
-      <div className="w-full flex flex-col gap-y-3 xl:mt-0 mt-10">
+    <div className="w-full h-full flex flex-col gap-y-3 pt-16">
+      <div className="w-full flex flex-col sm:gap-y-3 sm:px-5 px-3">
         {/* logo and login */}
-        <div className="w-full flex md:flex-row flex-col-reverse md:items-center md:justify-between py-5">
-          <span className="md:text-[48px] text-2xl text-[#1F3448] font-semibold">
-            Marktplatz
-          </span>
-          <div className="md:w-auto w-full flex items-center md:justify-normal justify-end gap-x-3">
-            <button
-              onClick={() => setToggle(true)}
-              className="text-[#1F847F] md:text-[16px] text-sm font-semibold hover:bg-slate-100 px-8 py-3 rounded transition-all duration-300"
-            >
-              Einloggen
-            </button>
-            {toggle ? <Login setToggle={setToggle}/> : ""}
-            <Link to={"/signup"}>
-              <button className="text-white bg-[#1F847F] hover:bg-[#186965] md:text-[16px] text-sm font-semibold px-8 py-3 rounded transition-all duration-300 text-nowrap">
-                Account erstellen
-              </button>
-            </Link>
-          </div>
-        </div>
+        <span className="md:text-5xl text-3xl text-[#1F3448] font-semibold py-5">
+          Marktplatz
+        </span>
         {/* logo and login */}
         <div className="w-full flex items-center justify-between gap-x-5">
           <div className="text-[14px] text-[#1F3448] flex items-center gap-x-2 overflow-auto">
@@ -108,15 +93,25 @@ const Home = () => {
               )}
               Bestand
             </button>
+            <button
+              onClick={() => setOpen(5)}
+              className={`font-medium flex items-center gap-x-1 px-4 py-2 tracking-wider transition-all duration-300  border border-slate-200 rounded-full  ${
+                open === 5 ? "bg-slate-200" : "hover:bg-slate-200"
+              }`}
+            >
+              <FaMapMarkedAlt />
+              Karte
+            </button>
           </div>
-          <button className="flex items-center gap-x-1 text-[14px] text-[#1F3448] font-medium px-4 py-2 tracking-wider transition-all duration-300 hover:bg-slate-200 border border-slate-200 rounded-full">
+          <button className="sm:flex hidden items-center gap-x-1 text-[14px] text-[#1F3448] font-medium px-4 py-2 tracking-wider transition-all duration-300 hover:bg-slate-200 border border-slate-200 rounded-full">
             <FaMapMarkedAlt />
             Karte
           </button>
         </div>
       </div>
       <div className="w-full h-full overflow-auto no-scrollbar">
-        <AllPage />
+        <NewObject />
+        <OtherObjects />
       </div>
     </div>
   );

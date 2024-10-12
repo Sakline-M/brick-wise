@@ -1,244 +1,31 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
-const countries = [
-  { value: "deutschland", label: "Deutschland" },
-  { value: "österreich", label: "Österreich" },
-  { value: "schweiz", label: "Schweiz" },
-  { value: "frankreich", label: "Frankreich" },
-  { value: "italien", label: "Italien" },
-  { value: "spanien", label: "Spanien" },
-  { value: "vereinigtes-königreich", label: "Vereinigtes Königreich" },
-  { value: "niederlande", label: "Niederlande" },
-  { value: "belgien", label: "Belgien" },
-  { value: "schweden", label: "Schweden" },
-  { value: "norwegen", label: "Norwegen" },
-  { value: "dänemark", label: "Dänemark" },
-  { value: "finnland", label: "Finnland" },
-];
+import Step1 from "./Step1";
+import axios from "axios";
 
-// array for your nationalities
-const nationalities = [
-  "Afghan",
-  "Albanian",
-  "Algerian",
-  "American",
-  "Andorran",
-  "Angolan",
-  "Argentine",
-  "Armenian",
-  "Australian",
-  "Austrian",
-  "Azerbaijani",
-  "Bahamian",
-  "Bahraini",
-  "Bangladeshi",
-  "Barbadian",
-  "Belarusian",
-  "Belgian",
-  "Belizean",
-  "Beninese",
-  "Bhutanese",
-  "Bolivian",
-  "Bosnian",
-  "Botswanan",
-  "Brazilian",
-  "British",
-  "Bruneian",
-  "Bulgarian",
-  "Burkinabe",
-  "Burmese",
-  "Burundian",
-  "Cambodian",
-  "Cameroonian",
-  "Canadian",
-  "Cape Verdean",
-  "Central African",
-  "Chadian",
-  "Chilean",
-  "Chinese",
-  "Colombian",
-  "Comoran",
-  "Congolese",
-  "Costa Rican",
-  "Croatian",
-  "Cuban",
-  "Cypriot",
-  "Czech",
-  "Danish",
-  "Djiboutian",
-  "Dominican",
-  "Dutch",
-  "East Timorese",
-  "Ecuadorean",
-  "Egyptian",
-  "Emirati",
-  "English",
-  "Equatorial Guinean",
-  "Eritrean",
-  "Estonian",
-  "Ethiopian",
-  "Fijian",
-  "Filipino",
-  "Finnish",
-  "French",
-  "Gabonese",
-  "Gambian",
-  "Georgian",
-  "German",
-  "Ghanaian",
-  "Greek",
-  "Grenadian",
-  "Guatemalan",
-  "Guinean",
-  "Guyanese",
-  "Haitian",
-  "Honduran",
-  "Hungarian",
-  "Icelandic",
-  "Indian",
-  "Indonesian",
-  "Iranian",
-  "Iraqi",
-  "Irish",
-  "Israeli",
-  "Italian",
-  "Ivorian",
-  "Jamaican",
-  "Japanese",
-  "Jordanian",
-  "Kazakh",
-  "Kenyan",
-  "Kuwaiti",
-  "Kyrgyz",
-  "Lao",
-  "Latvian",
-  "Lebanese",
-  "Liberian",
-  "Libyan",
-  "Liechtenstein citizen",
-  "Lithuanian",
-  "Luxembourger",
-  "Macedonian",
-  "Malagasy",
-  "Malawian",
-  "Malaysian",
-  "Maldivian",
-  "Malian",
-  "Maltese",
-  "Marshallese",
-  "Mauritanian",
-  "Mauritian",
-  "Mexican",
-  "Micronesian",
-  "Moldovan",
-  "Monegasque",
-  "Mongolian",
-  "Montenegrin",
-  "Moroccan",
-  "Mozambican",
-  "Namibian",
-  "Nauruan",
-  "Nepalese",
-  "New Zealander",
-  "Nicaraguan",
-  "Nigerian",
-  "Nigerien",
-  "North Korean",
-  "Norwegian",
-  "Omani",
-  "Pakistani",
-  "Palauan",
-  "Palestinian",
-  "Panamanian",
-  "Papua New Guinean",
-  "Paraguayan",
-  "Peruvian",
-  "Polish",
-  "Portuguese",
-  "Qatari",
-  "Romanian",
-  "Russian",
-  "Rwandan",
-  "Saint Lucian",
-  "Salvadoran",
-  "Samoan",
-  "San Marinese",
-  "Sao Tomean",
-  "Saudi Arabian",
-  "Scottish",
-  "Senegalese",
-  "Serbian",
-  "Seychellois",
-  "Sierra Leonean",
-  "Singaporean",
-  "Slovak",
-  "Slovenian",
-  "Solomon Islander",
-  "Somali",
-  "South African",
-  "South Korean",
-  "Spanish",
-  "Sri Lankan",
-  "Sudanese",
-  "Surinamese",
-  "Swazi",
-  "Swedish",
-  "Swiss",
-  "Syrian",
-  "Taiwanese",
-  "Tajik",
-  "Tanzanian",
-  "Thai",
-  "Togolese",
-  "Tongan",
-  "Trinidadian",
-  "Tunisian",
-  "Turkish",
-  "Turkmen",
-  "Tuvaluan",
-  "Ugandan",
-  "Ukrainian",
-  "Uruguayan",
-  "Uzbek",
-  "Vanuatuan",
-  "Venezuelan",
-  "Vietnamese",
-  "Welsh",
-  "Yemeni",
-  "Zambian",
-  "Zimbabwean",
-];
-
-// array for date
-const numbers = Array.from({ length: 31 }, (_, i) => i + 1);
+// react-select for nationality
+// Date picker for birth date
+// react-phone-number-input for phone num
 
 // array for months
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-// array for years
-const years = Array.from(
-  { length: 2006 - 1900 + 1 },
-  (_, i) => i + 1900
-).reverse();
 
 const Signup = () => {
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm();
+  const password = watch("password", "");
+
+  // Date of birth
+
   // all state
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState(null);
@@ -268,6 +55,42 @@ const Signup = () => {
     investment: "yes",
   });
 
+  const onSubmit = async (data) => {
+    console.log(data);
+    try {
+      const response = await axios.post("http://localhost:5000/signup", {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+        gender: data.gender.value,
+        title: data.title.value,
+        street: data.street,
+        no: data.no,
+        zipCode: data.zipCode,
+        city: data.city,
+        country: data.country.value,
+        political: data.political.value,
+        usTax: data.usTax.value,
+        dateOfBirth:
+          data.day.value + "-" + data.month.value + "-" + data.year.value,
+        placeOfBirth: data.placeOfBirth,
+        nationality: data.nationality.value,
+        phone: data.phone,
+        experience: "skip",
+        investment: "yes",
+      });
+      toast.success("User created successfully");
+      if (response.data.status === "success") {
+        handleNext();
+      }
+      console.log("user created:", response.data);
+    } catch (error) {
+      console.error("Error creating user:", error);
+      toast.error("something went wrong");
+    }
+  };
   // navigate
   const navigate = useNavigate();
 
@@ -277,34 +100,10 @@ const Signup = () => {
   };
   const handleNext = () => setStep(step + 1);
 
-  // handle sign up submit
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setError("");
-    const { day, month, year } = user;
-    const dateOfBirth = day + "-" + month + "-" + year;
-    const newUser = { ...user, dateOfBirth };
-    fetch(`https://brick-wise-server.onrender.com/api/v1/user/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.status === "success") {
-          handleNext();
-        } else {
-          setError(data.message);
-        }
-      });
-  };
 
   // handle resend email
   const resendConfirmEmail = (email) => {
-    fetch(`https://brick-wise-server.onrender.com/api/v1/user/email`, {
+    fetch(`https://localhost:5000/api/v1/user/email`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -327,8 +126,11 @@ const Signup = () => {
 
   return (
     // Main div
-    <div className="w-full h-full">
-      <div className="md:w-[40rem] xl:mx-0 mx-auto w-full h-full flex flex-col gap-y-5 overflow-auto no-scrollbar p-5">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-full h-full overflow-auto no-scrollbar"
+    >
+      <div className="max-w-[40rem] mx-auto w-full h-auto flex flex-col gap-y-5 px-5 py-20">
         <h1 className="xl:text-5xl md:text-3xl text-xl text-center text-pretty uppercase text-black">
           In wenigen Schritten zu Ihrem Zins
         </h1>
@@ -364,17 +166,18 @@ const Signup = () => {
           <div className="w-full flex items-center justify-between uppercase text-sm text-black font-medium">
             <span className="w-full md:text-base text-xs">Anlegerportal</span>
             <span className="w-full md:text-base text-xs">Kenntnisse</span>
-            <span className=" md:text-base text-xs">Aktivierung</span>
+            <span className="md:text-base text-xs">Aktivierung</span>
           </div>
         </div>
         {/* function for show step */}
+
         {step === 1 && (
           <Step1
-            handleNext={handleNext}
-            user={user}
-            setUser={setUser}
-            handleSubmit={handleSubmit}
-            error={error}
+            register={register}
+            control={control}
+            errors={errors}
+            password={password}
+            isSubmitting={isSubmitting}
           />
         )}
         {step === 2 && (
@@ -394,430 +197,9 @@ const Signup = () => {
           />
         )}
       </div>
-    </div>
+    </form>
   );
 };
-
-// step 1
-const Step1 = ({ handleNext, setUser, user, handleSubmit, error }) => (
-  // sign up from
-  <form onSubmit={handleSubmit} className="w-full flex flex-col gap-y-5">
-    <span className="md:pb-8 pb-3 border-b md:text-2xl text-lg text-black">
-      Bitte vervollständigen Sie Ihr Profil
-    </span>
-    <span className="text-end sm:text-sm text-xs font-medium">
-      * sind Pflichtangaben
-    </span>
-    {/* gender and title */}
-    <div className="w-full flex items-center justify-between gap-x-5">
-      <div className="w-full flex flex-col gap-y-1">
-        <label htmlFor="" className="text-black md:text-base text-xs">
-          Anrede*
-        </label>
-        <select
-          name="gender"
-          id=""
-          required
-          className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
-          onChange={(e) => {
-            setUser({ ...user, gender: e.target.value });
-          }}
-        >
-          <option disabled>Bitte wählen</option>
-          <option value="male">Herr</option>
-          <option value="female">Frau</option>
-        </select>
-      </div>
-      <div className="w-full flex flex-col gap-y-1">
-        <label htmlFor="" className="text-black md:text-base text-xs">
-          Titel
-        </label>
-        <select
-          name=""
-          id=""
-          className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
-          onChange={(e) => {
-            setUser({ ...user, title: e.target.value });
-          }}
-        >
-          <option value={""}>keiner</option>
-          <option value="Dr.">Dr.</option>
-          <option value="Prof.">Prof.</option>
-          <option value="Prof. Dr.">Prof. Dr.</option>
-        </select>
-      </div>
-    </div>
-
-    {/* first name */}
-    <div className="w-full flex items-center justify-between gap-x-5">
-      <div className="w-full flex flex-col gap-y-1">
-        <label htmlFor="" className="text-black md:text-base text-xs">
-          Vorname*
-        </label>
-        <input
-          type="text"
-          name=""
-          id=""
-          required
-          className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
-          onChange={(e) => {
-            setUser({ ...user, firstName: e.target.value });
-          }}
-        />
-      </div>
-
-      {/* last name */}
-      <div className="w-full flex flex-col gap-y-1">
-        <label htmlFor="" className="text-black md:text-base text-xs">
-          Nachname*
-        </label>
-        <input
-          type="text"
-          name=""
-          id=""
-          required
-          className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
-          onChange={(e) => {
-            setUser({ ...user, lastName: e.target.value });
-          }}
-        />
-      </div>
-    </div>
-
-    {/* street */}
-    <div className="w-full flex items-center gap-x-5">
-      <div className="w-[70%] flex flex-col gap-y-1">
-        <label htmlFor="" className="text-black md:text-base text-xs">
-          Straße*
-        </label>
-        <input
-          type="text"
-          name=""
-          id=""
-          required
-          className="w-full bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto"
-          onChange={(e) => {
-            setUser({ ...user, street: e.target.value });
-          }}
-        />
-      </div>
-
-      {/* street no. */}
-      <div className="w-[30%] flex flex-col gap-y-1">
-        <label htmlFor="" className="text-black md:text-base text-xs">
-          Nr.*
-        </label>
-        <input
-          type="text"
-          name=""
-          id=""
-          required
-          className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
-          onChange={(e) => {
-            setUser({ ...user, no: e.target.value });
-          }}
-        />
-      </div>
-    </div>
-
-    {/* Zip Code */}
-    <div className="w-full flex items-center gap-x-5">
-      <div className="w-[30%] flex flex-col gap-y-1">
-        <label htmlFor="" className="text-black md:text-base text-xs">
-          PLZ*
-        </label>
-        <input
-          type="text"
-          name=""
-          id=""
-          className="w-full bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto"
-          onChange={(e) => {
-            setUser({ ...user, zipCode: e.target.value });
-          }}
-        />
-      </div>
-
-      {/* City */}
-      <div className="w-[70%] flex flex-col gap-y-1">
-        <label htmlFor="" className="text-black md:text-base text-xs">
-          Stadt*
-        </label>
-        <input
-          type="text"
-          name=""
-          id=""
-          required
-          className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
-          onChange={(e) => {
-            setUser({ ...user, city: e.target.value });
-          }}
-        />
-      </div>
-    </div>
-
-    {/* Country */}
-    <div className="w-full flex flex-col gap-y-1">
-      <label htmlFor="" className="text-black md:text-base text-xs">
-        Land*
-      </label>
-      <select
-        name=""
-        id=""
-        required
-        className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
-        onChange={(e) => {
-          setUser({ ...user, country: e.target.value });
-        }}
-      >
-        <option disabled>Bitte wählen</option>
-        {countries.map((country, i) => (
-          <option key={i} value={country.label}>
-            {country.label}
-          </option>
-        ))}
-      </select>
-    </div>
-
-    {/* political checkbox */}
-    <div className="w-full flex items-center justify-between gap-x-5">
-      <div className="w-full flex flex-col gap-y-1">
-        <label htmlFor="" className="text-black md:text-base text-xs">
-          Politisch exponierte Person
-        </label>
-        <select
-          name=""
-          id=""
-          className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
-          onChange={(e) => {
-            setUser({ ...user, political: e.target.value });
-          }}
-        >
-          <option disabled>Bitte wählen</option>
-          <option value="yes">Ja</option>
-          <option value="no">Nein</option>
-        </select>
-      </div>
-
-      {/* Tax */}
-      <div className="w-full flex flex-col gap-y-1">
-        <label htmlFor="" className="text-black md:text-base text-xs">
-          Liegt eine US-Steuerpflicht vor*
-        </label>
-        <select
-          name=""
-          id=""
-          className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
-          onChange={(e) => {
-            setUser({ ...user, usTax: e.target.value });
-          }}
-        >
-          <option disabled>Bitte wählen</option>
-          <option value="yes">Ja</option>
-          <option value="no">Nein</option>
-        </select>
-      </div>
-    </div>
-
-    {/* Birth Place */}
-    <div className="w-full flex items-center justify-between gap-x-5">
-      <div className="w-full flex flex-col gap-y-1">
-        <label htmlFor="" className="text-black md:text-base text-xs">
-          Geburtsort*
-        </label>
-        <input
-          type="text"
-          name=""
-          id=""
-          required
-          className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
-          onChange={(e) => {
-            setUser({ ...user, placeOfBirth: e.target.value });
-          }}
-        />
-      </div>
-
-      {/* Nationality */}
-      <div className="w-full flex flex-col gap-y-1">
-        <label htmlFor="" className="text-black md:text-base text-xs">
-          Staatsangehörigkeit*
-        </label>
-        <select
-          name=""
-          id=""
-          required
-          className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
-          onChange={(e) => {
-            setUser({ ...user, nationality: e.target.value });
-          }}
-        >
-          {nationalities.map((nation, i) => (
-            <option key={i} value={nation}>
-              {nation}
-            </option>
-          ))}
-        </select>
-      </div>
-    </div>
-
-    {/* Date Of Barth */}
-    <div className="w-full flex flex-col gap-y-1">
-      <span className="text-black md:text-base text-sm">Geburtsdatum*</span>
-      <div className="w-full flex items-center justify-between gap-x-5">
-        <div className="w-full flex flex-col gap-y-1">
-          <label htmlFor="" className="text-black md:text-base text-xs">
-            Tag
-          </label>
-          <select
-            name=""
-            id=""
-            className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
-            onChange={(e) => {
-              setUser({ ...user, day: e.target.value });
-            }}
-          >
-            {numbers.map((num, i) => (
-              <option key={i}>{num}</option>
-            ))}
-          </select>
-        </div>
-        <div className="w-full flex flex-col gap-y-1">
-          <label htmlFor="" className="text-black md:text-base text-xs">
-            Monat
-          </label>
-          <select
-            name=""
-            id=""
-            className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
-            onChange={(e) => {
-              setUser({ ...user, month: e.target.value });
-            }}
-          >
-            {months.map((month, i) => (
-              <option key={i} value={month}>
-                {month}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="w-full flex flex-col gap-y-1">
-          <label htmlFor="" className="text-black md:text-base text-xs">
-            Jahr
-          </label>
-          <select
-            name=""
-            id=""
-            className="sm:py-2 py-1 sm:text-base text-sm bg-white border"
-          >
-            {years.map((year, i) => (
-              <option key={i} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-    </div>
-
-    {/* Phone */}
-    <div className="w-full flex flex-col gap-y-1">
-      <label htmlFor="" className=" md:text-base text-xs">
-        Telefonnummer*
-      </label>
-      <input
-        type="text"
-        name=""
-        id=""
-        required
-        className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
-        onChange={(e) => {
-          setUser({ ...user, phone: e.target.value });
-        }}
-      />
-    </div>
-
-    {/* Email */}
-    <div className="w-full flex flex-col gap-y-1">
-      <label htmlFor="" className=" md:text-base text-xs">
-        E-Mail-Adresse*
-      </label>
-      <input
-        type="email"
-        name=""
-        id=""
-        required
-        className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
-        onChange={(e) => {
-          setUser({ ...user, email: e.target.value });
-        }}
-      />
-    </div>
-
-    {/* Password */}
-    <div className="w-full flex items-center justify-between gap-x-5">
-      <div className="w-full flex flex-col gap-y-1">
-        <label htmlFor="" className="text-black md:text-base text-xs">
-          Passwort*
-        </label>
-        <input
-          type="password"
-          name=""
-          id=""
-          required
-          className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
-          onChange={(e) => {
-            setUser({ ...user, password: e.target.value });
-          }}
-        />
-      </div>
-
-      {/* Confirm Password */}
-      <div className="w-full flex flex-col gap-y-1">
-        <label htmlFor="" className="text-black md:text-base text-xs">
-          Passwort bestätigen*
-        </label>
-        <input
-          type="password"
-          name=""
-          id=""
-          required
-          className="bg-white border sm:py-2 py-1 sm:text-base text-sm md:w-auto w-full"
-          onChange={(e) => {
-            setUser({ ...user, confirmPassword: e.target.value });
-          }}
-        />
-      </div>
-    </div>
-
-    {/* All Check box */}
-    <div className="w-full flex items-baseline gap-x-1">
-      <input type="checkbox" name="" id="" />
-      <span className="sm:text-base text-sm">
-        Ich akzeptiere die EV Digital Invest AGB
-      </span>
-    </div>
-    <div className="w-full flex items-baseline gap-x-1">
-      <input type="checkbox" name="" id="" />
-      <span className="sm:text-base text-sm">
-        Ich habe die Datenschutzerklärung zur Kenntnis genommen und willige in
-        die Datenverarbeitung ein.
-      </span>
-    </div>
-    <div className="w-full flex items-baseline gap-x-1">
-      <input type="checkbox" name="" id="" className="text-white" />
-      <span className="sm:text-base text-sm">
-        Ich möchte über Projekte, Neuigkeiten und Tipps per E-Mail informiert
-        werden. Es erfolgt keine Weitergabe an Dritte.
-      </span>
-    </div>
-    <p className="text-red-600 text-center">{error}</p>
-    <button
-      type="submit"
-      className="w-full py-2 sm:text-base text-sm rounded bg-[#FF0000] transition-colors duration-300 hover:bg-[#CC0000] text-white font-medium"
-    >
-      Speichern & Weiter
-    </button>
-  </form>
-);
 
 // step 2
 const Step2 = ({ handleChange, selected, handleNext }) => (
