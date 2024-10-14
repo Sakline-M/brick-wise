@@ -29,58 +29,35 @@ const Signup = () => {
   // all state
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState(null);
-  const [error, setError] = useState("");
-  const [user, setUser] = useState({
-    firstName: "biplob",
-    lastName: "hossain",
-    email: "mdbiplub13@gmail.com",
-    password: "123456",
-    confirmPassword: "123456",
-    gender: "male",
-    title: "",
-    street: "33",
-    no: "33",
-    zipCode: "333",
-    city: "dhaka",
-    country: "Germany",
-    political: "yes",
-    usTax: "yes",
-    placeOfBirth: "natore",
-    nationality: "xccv",
-    day: "1",
-    month: "January",
-    year: "2006",
-    phone: "0923872332",
-    experience: "skip",
-    investment: "yes",
-  });
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
-      const response = await axios.post("http://localhost:5000/signup", {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        password: data.password,
-        confirmPassword: data.confirmPassword,
-        gender: data.gender.value,
-        title: data.title.value,
-        street: data.street,
-        no: data.no,
-        zipCode: data.zipCode,
-        city: data.city,
-        country: data.country.value,
-        political: data.political.value,
-        usTax: data.usTax.value,
-        dateOfBirth:
-          data.day.value + "-" + data.month.value + "-" + data.year.value,
-        placeOfBirth: data.placeOfBirth,
-        nationality: data.nationality.value,
-        phone: data.phone,
-        experience: "skip",
-        investment: "yes",
-      });
+      const response = await axios.post(
+        "/signup",
+        {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          password: data.password,
+          confirmPassword: data.confirmPassword,
+          gender: data.gender.value,
+          title: data.title.value,
+          street: data.street,
+          no: data.no,
+          zipCode: data.zipCode,
+          city: data.city,
+          country: data.country.value,
+          political: data.political.value,
+          usTax: data.usTax.value,
+          dateOfBirth:
+            data.day.value + "-" + data.month.value + "-" + data.year.value,
+          placeOfBirth: data.placeOfBirth,
+          nationality: data.nationality.value,
+          phone: data.phone,
+          experience: "skip",
+          investment: "yes",
+        }
+      );
       toast.success("User created successfully");
       if (response.data.status === "success") {
         handleNext();
@@ -99,7 +76,6 @@ const Signup = () => {
     setSelected(event.target.value);
   };
   const handleNext = () => setStep(step + 1);
-
 
   // handle resend email
   const resendConfirmEmail = (email) => {
@@ -185,14 +161,11 @@ const Signup = () => {
             handleChange={handleChange}
             selected={selected}
             handleNext={handleNext}
-            user={user}
-            setUser={setUser}
           />
         )}
         {step === 3 && (
           <Step3
             handleNext={handleNext}
-            user={user}
             resendConfirmEmail={resendConfirmEmail}
           />
         )}

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const Login = ({ setToggle, }) => {
+const Login = ({ setToggle }) => {
   const {
     register,
     handleSubmit,
@@ -14,7 +14,7 @@ const Login = ({ setToggle, }) => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post("http://localhost:5000/login", data);
+      const response = await axios.post("/login", data);
       localStorage.setItem("token", response.data.token);
       // setAuthToken(response.data.token);
       console.log(response.data);
