@@ -1,32 +1,52 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
 import { IoMdClose } from "react-icons/io";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useContext, useState } from "react";
+import { AuthContext } from "../contextApi/UserContext";
 
 const Login = ({ setToggle }) => {
+  // navigation
+  const navigate = useNavigate();
+
+  // all state
+  const [error, setError] = useState("");
+
+  // context API
+  const { refresh, setRefresh } = useContext(AuthContext);
+
+  // use form
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
 
+  // ALL FUNCTIONS
+  //login 
   const onSubmit = async (data) => {
-    try {
-      const response = await axios.post("/login", data);
-      localStorage.setItem("token", response.data.token);
-      // setAuthToken(response.data.token);
-      console.log(response.data);
-      if (response.data === "success") {
-        toast.success("user login successfully");
-      }
-    } catch (error) {
-      console.error(
-        "Error:",
-        error.response ? error.response.data : error.message
-      );
-    }
+    setError("");
+    fetch(`http://localhost:5000/api/v1/user/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "success") {
+          toast.success("Login successful!");
+          navigate("/");
+          localStorage.setItem("brick_token", data?.token);
+          setToggle(false);
+          setRefresh(refresh + 1);
+        } else {
+          setError(data.message);
+        }
+      });
   };
 
   return (
@@ -61,6 +81,7 @@ const Login = ({ setToggle }) => {
                   className="w-full px-3 py-2 border rounded-lg"
                 />
               </div>
+              <p className="text-red-600 text-center mb-2">{error}</p>
               <button
                 type="submit"
                 disabled={isSubmitting}

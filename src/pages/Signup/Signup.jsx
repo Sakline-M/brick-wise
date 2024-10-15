@@ -32,40 +32,46 @@ const Signup = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post(
-        "/signup",
-        {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          password: data.password,
-          confirmPassword: data.confirmPassword,
-          gender: data.gender.value,
-          title: data.title.value,
-          street: data.street,
-          no: data.no,
-          zipCode: data.zipCode,
-          city: data.city,
-          country: data.country.value,
-          political: data.political.value,
-          usTax: data.usTax.value,
-          dateOfBirth:
-            data.day.value + "-" + data.month.value + "-" + data.year.value,
-          placeOfBirth: data.placeOfBirth,
-          nationality: data.nationality.value,
-          phone: data.phone,
-          experience: "skip",
-          investment: "yes",
-        }
+      // Get user Data
+      const user = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+        gender: data.gender.value,
+        title: data.title.value,
+        street: data.street,
+        no: data.no,
+        zipCode: data.zipCode,
+        city: data.city,
+        country: data.country.value,
+        political: data.political.value,
+        usTax: data.usTax.value,
+        dateOfBirth:
+          data.day.value + "-" + data.month.value + "-" + data.year.value,
+        placeOfBirth: data.placeOfBirth,
+        nationality: data.nationality.value,
+        phone: data.phone,
+        experience: "skip",
+        investment: "yes",
+      };
+
+      console.log(user);
+      // Create user
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/user/signup",
+        user
       );
-      toast.success("User created successfully");
-      if (response.data.status === "success") {
-        handleNext();
+      if (res?.data.status === "success") {
+        toast.success("Signup successful!");
+        handleNext()
+      } else {
+        toast.error("Signup failed!");
       }
-      console.log("user created:", response.data);
     } catch (error) {
       console.error("Error creating user:", error);
-      toast.error("something went wrong");
+      toast.error("Something went wrong");
     }
   };
   // navigate

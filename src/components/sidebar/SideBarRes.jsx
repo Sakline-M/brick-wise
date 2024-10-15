@@ -2,18 +2,21 @@
 import logoImg from "../../../public/logo.svg";
 import { Link } from "react-router-dom";
 import Login from "../Login";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { FcFaq } from "react-icons/fc";
 import { RxAvatar } from "react-icons/rx";
 import { FaRegCommentAlt } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
-import LogoutButton from "../LogoutButton";
 import { RiHomeLine } from "react-icons/ri";
 import { AiOutlineEuro } from "react-icons/ai";
+import { AuthContext } from "../../contextApi/UserContext";
 
-const SideBarRes = ({ toggleR, setToggleR, authToken, user }) => {
+const SideBarRes = ({ toggleR, setToggleR, authToken }) => {
   const [toggle, setToggle] = useState(false);
+
+  // context API
+  const { user, logout } = useContext(AuthContext);
   return (
     <div
       className={`${
@@ -86,7 +89,18 @@ const SideBarRes = ({ toggleR, setToggleR, authToken, user }) => {
             </div>
 
             {/* Login and Sign Up Buttons */}
-            {!authToken ? (
+            {user?.email ? (
+              <div>
+                <button
+                  onClick={() => {
+                    logout();
+                  }}
+                  className="text-white bg-[#1F847F] hover:bg-[#186965] md:text-[16px] text-sm font-semibold sm:px-8 px-5 py-3 rounded transition-all duration-300 text-nowrap"
+                >
+                  Abmelden
+                </button>
+              </div>
+            ) : (
               <div className="mt-8 px-[12px]">
                 <button
                   onClick={() => setToggle(true)}
@@ -100,21 +114,6 @@ const SideBarRes = ({ toggleR, setToggleR, authToken, user }) => {
                     Account erstellen
                   </button>
                 </Link>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-y-5">
-                <LogoutButton />
-                <div className="flex flex-col gap-y-1">
-                  <span className="text-gray-700 font-semibold">
-                    Eingeloggt als:
-                  </span>
-                  <div className=" flex items-center gap-x-1 text-[#1F847F] font-semibold">
-                    <span>{user?.firstName}</span>
-                    <span>
-                      <span>{user?.lastName}</span>
-                    </span>
-                  </div>
-                </div>
               </div>
             )}
 
