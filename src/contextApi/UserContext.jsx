@@ -13,7 +13,7 @@ const UserContext = ({ children }) => {
   useEffect(() => {
     if (!token) return;
     setLoading(true);
-    fetch("http://localhost:5000/api/v1/user/single", {
+    fetch("https://brick-wise-server.onrender.com/api/v1/user/single", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

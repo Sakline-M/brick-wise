@@ -28,7 +28,7 @@ const Login = ({ setToggle }) => {
   //login 
   const onSubmit = async (data) => {
     setError("");
-    fetch(`http://localhost:5000/api/v1/user/login`, {
+    fetch(`https://brick-wise-server.onrender.com/api/v1/user/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

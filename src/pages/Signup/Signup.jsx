@@ -60,7 +60,7 @@ const Signup = () => {
       console.log(user);
       // Create user
       const res = await axios.post(
-        "http://localhost:5000/api/v1/user/signup",
+        "https://brick-wise-server.onrender.com/api/v1/user/signup",
         user
       );
       if (res?.data.status === "success") {
